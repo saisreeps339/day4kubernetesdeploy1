@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: daysaipod11
+    x: saijenkins
+  name: daysaipod11
+  namespace: saisree
+spec:
+  containers:
+  - image: imowhatsapp/day4saiweb:v1
+    name: daysaipod11
+    ports:
+     - containerPort: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: day4saisvc
+  name: day4saisvc
+  namespace: saisree
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    x: saijenkins # same as pod label
+  type: NodePort
+status:
+  loadBalancer: {}
